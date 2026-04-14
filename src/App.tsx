@@ -694,7 +694,7 @@ export default function App() {
       <Stars />
       <FloatingHearts />
 
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-start px-3 pt-4 pb-6 sm:px-4 sm:pt-8 sm:pb-8">
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-3 py-4 sm:px-4 sm:py-6">
         <div className="w-full max-w-sm">
 
           {/* ── 主页 ── */}
@@ -731,7 +731,7 @@ export default function App() {
 
           {/* ── 游戏界面 ── */}
           {screen === 'game' && (
-            <div className="min-h-[80vh] sm:min-h-[85vh] flex flex-col animate-bounce-in">
+            <div className="flex-1 flex flex-col animate-bounce-in">
               <GameScreen
                 mode={selectedMode}
                 tasks={getTaskPool(selectedMode)}
@@ -743,7 +743,7 @@ export default function App() {
 
           {/* ── 自定义编辑 ── */}
           {screen === 'custom-edit' && (
-            <div className="min-h-[80vh] sm:min-h-[85vh] flex flex-col animate-bounce-in">
+            <div className="flex-1 flex flex-col animate-bounce-in">
               <CustomTaskManager
                 tasks={customTasks}
                 onSave={saveCustomTasks}
@@ -754,7 +754,7 @@ export default function App() {
 
           {/* ── 模式详情（玩法说明 + 任务列表） ── */}
           {screen === 'mode-detail' && (
-            <div className="min-h-[80vh] sm:min-h-[85vh] flex flex-col animate-bounce-in">
+            <div className="flex-1 flex flex-col animate-bounce-in">
               <ModeDetail
                 mode={selectedMode}
                 tasks={getTaskPool(selectedMode)}
