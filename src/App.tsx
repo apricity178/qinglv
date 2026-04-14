@@ -688,11 +688,6 @@ export default function App() {
     }
   };
 
-  const handleModeDetail = (mode: GameMode) => {
-    setSelectedMode(mode);
-    setScreen('mode-detail');
-  };
-
   return (
     <div className="min-h-screen relative">
       <Stars />
