@@ -10,6 +10,9 @@
   --color-bg: #EEF2FF;
   --color-dark: #1E1B4B;
 
+  /* 自定义移动端断点（超小屏幕） */
+  --breakpoint-xs: 320px;
+
   --animate-bounce-in: bounce-in 0.6s ease-out;
   --animate-glow-pulse: glow-pulse 2s ease-in-out infinite;
   --animate-float: float 3s ease-in-out infinite;
@@ -51,13 +54,42 @@
 * {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+html {
+  height: 100%;
+  overscroll-behavior: none;
 }
 
 body {
   font-family: 'Nunito', sans-serif;
   background: #0f0c29;
   min-height: 100vh;
+  min-height: 100dvh;
   overflow-x: hidden;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+  touch-action: manipulation;
+}
+
+/* iPhone Safe Area */
+body {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* 移动端输入框优化 */
+input, textarea {
+  font-size: 16px !important; /* 防止 iOS 缩放 */
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+input:focus, textarea:focus {
+  font-size: 16px !important;
 }
 
 /* 星空背景 */

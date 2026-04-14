@@ -85,14 +85,14 @@ function ModeDetail({
   return (
     <div className="flex flex-col h-full animate-bounce-in">
       {/* 顶栏 */}
-      <div className="flex items-center gap-3 mb-6">
+      <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
         <button
           onClick={onBack}
-          className="btn-ripple cursor-pointer p-2 rounded-xl glass hover:bg-white/10 transition-colors text-white"
+          className="btn-ripple cursor-pointer p-2 rounded-xl glass hover:bg-white/10 transition-colors text-white text-sm active:scale-95"
         >
           ← 返回
         </button>
-        <h2 className="text-xl font-bold font-fredoka gradient-text">{cfg.emoji} {cfg.label}</h2>
+        <h2 className="text-lg sm:text-xl font-bold font-fredoka gradient-text">{cfg.emoji} {cfg.label}</h2>
       </div>
 
       <div className="flex-1 overflow-y-auto space-y-5 pb-4">
@@ -167,16 +167,17 @@ function ModeCard({ mode, onSelect }: { mode: GameMode; onSelect: () => void }) 
     <button
       onClick={onSelect}
       className={`
-        glass rounded-2xl p-5 text-left transition-all duration-300
+        glass rounded-2xl p-3 sm:p-5 text-left transition-all duration-300
         hover:scale-105 cursor-pointer btn-ripple
         border border-white/10 hover:border-white/30
         group relative overflow-hidden
+        active:scale-95
       `}
       style={{ '--glow': cfg.glowColor } as React.CSSProperties}
     >
       <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl bg-gradient-to-br ${cfg.color} opacity-10`} />
       <div className="relative z-10">
-        <div className="text-4xl mb-3">{cfg.emoji}</div>
+        <div className="text-3xl sm:text-4xl mb-2 sm:mb-3">{cfg.emoji}</div>
         <div className={`text-lg font-bold font-fredoka bg-gradient-to-r ${cfg.color} bg-clip-text text-transparent`}>
           {cfg.label}
         </div>
@@ -201,36 +202,36 @@ function PickableCard({
   onSelect: () => void;
 }) {
   return (
-    <button
-      onClick={flipped || dimmed ? undefined : onSelect}
-      className={`
-        flex-shrink-0 w-[60px] sm:w-[72px] aspect-[3/4]
-        rounded-xl cursor-pointer transition-all duration-300
-        perspective relative
-        ${dimmed ? 'opacity-30 scale-90 pointer-events-none' : 'hover:scale-110'}
-        ${!flipped && !dimmed ? 'hover:-translate-y-2' : ''}
-      `}
-      style={{ animationDelay: `${index * 0.1}s` }}
-    >
-      <div className={`card-flip relative w-full h-full ${flipped ? 'flipped' : ''} animate-bounce-in`}
-        style={{ animationDelay: `${index * 0.1}s` }}>
-        {/* 正面（背面花纹） */}
-        <div className={`card-face absolute inset-0 rounded-xl glass
-          flex flex-col items-center justify-center border border-white/20
-          ${flipped ? 'pointer-events-none' : ''}
-        `}>
-          <div className="text-2xl sm:text-3xl mb-1">🃏</div>
-          <div className="text-white/40 text-[10px] font-bold">{index + 1}</div>
-          <div className="absolute inset-0 rounded-xl card-pattern opacity-20" />
+      <button
+        onClick={flipped || dimmed ? undefined : onSelect}
+        className={`
+          flex-shrink-0 w-[52px] xs:w-[56px] sm:w-[72px] aspect-[3/4]
+          rounded-xl cursor-pointer transition-all duration-300
+          perspective relative
+          ${dimmed ? 'opacity-30 scale-90 pointer-events-none' : 'hover:scale-110 active:scale-105'}
+          ${!flipped && !dimmed ? 'hover:-translate-y-1' : ''}
+        `}
+        style={{ animationDelay: `${index * 0.1}s` }}
+      >
+        <div className={`card-flip relative w-full h-full ${flipped ? 'flipped' : ''} animate-bounce-in`}
+          style={{ animationDelay: `${index * 0.1}s` }}>
+          {/* 正面（背面花纹） */}
+          <div className={`card-face absolute inset-0 rounded-xl glass
+            flex flex-col items-center justify-center border border-white/20
+            ${flipped ? 'pointer-events-none' : ''}
+          `}>
+            <div className="text-xl xs:text-2xl sm:text-3xl mb-0.5 sm:mb-1">🃏</div>
+            <div className="text-white/40 text-[9px] xs:text-[10px] font-bold">{index + 1}</div>
+            <div className="absolute inset-0 rounded-xl card-pattern opacity-20" />
+          </div>
+          {/* 背面（任务内容） */}
+          <div className="card-face-back absolute inset-0 rounded-xl bg-gradient-to-br from-indigo-900/95 to-purple-900/95 flex items-center justify-center p-1.5 xs:p-2 border border-indigo-400/40">
+            <p className="text-white text-[9px] xs:text-[10px] sm:text-xs font-bold text-center leading-tight font-nunito">
+              {task?.text}
+            </p>
+          </div>
         </div>
-        {/* 背面（任务内容） */}
-        <div className="card-face-back absolute inset-0 rounded-xl bg-gradient-to-br from-indigo-900/95 to-purple-900/95 flex items-center justify-center p-2 border border-indigo-400/40">
-          <p className="text-white text-[10px] sm:text-xs font-bold text-center leading-tight font-nunito">
-            {task?.text}
-          </p>
-        </div>
-      </div>
-    </button>
+      </button>
   );
 }
 
@@ -273,21 +274,21 @@ function CardSelection({
     return (
       <div className="flex flex-col items-center gap-6">
         <div className={`
-          px-6 py-2 rounded-full text-white font-bold text-lg
+          px-5 sm:px-6 py-1.5 sm:py-2 rounded-full text-white font-bold text-base sm:text-lg
           bg-gradient-to-r ${currentPlayer === 'boy' ? 'from-blue-500 to-indigo-500' : 'from-pink-500 to-rose-500'}
           shadow-lg
         `}>
           {currentPlayer === 'boy' ? '👦 男生' : '👧 女生'} 的回合
         </div>
-        <div className="text-white/50 text-center text-lg">
+        <div className="text-white/50 text-center text-sm sm:text-lg px-2">
           点击下方按钮抽取 5 张任务卡
         </div>
         <button
           onClick={handleDraw}
-          className="btn-ripple cursor-pointer px-10 py-5 rounded-2xl text-xl font-bold font-fredoka text-white
+          className="btn-ripple cursor-pointer px-8 sm:px-10 py-4 sm:py-5 rounded-2xl text-lg sm:text-xl font-bold font-fredoka text-white
             bg-gradient-to-r from-indigo-500 to-purple-500
             hover:from-indigo-400 hover:to-purple-400
-            transition-all duration-300 hover:scale-105
+            transition-all duration-300 hover:scale-105 active:scale-95
             shadow-lg shadow-indigo-500/30 animate-glow-pulse"
         >
           🎲 抽取任务
@@ -312,7 +313,7 @@ function CardSelection({
       </div>
 
       {/* 5张卡牌横向排列 */}
-      <div className="flex justify-center gap-2 sm:gap-3 w-full py-2">
+      <div className="flex justify-center gap-1 xs:gap-1.5 sm:gap-3 w-full py-2">
         {drawnTasks.map((task, i) => (
           <PickableCard
             key={`${task.id}-${i}`}
@@ -367,7 +368,7 @@ function TaskRevealCard({
     <div className="flex flex-col items-center gap-6 w-full max-w-sm mx-auto">
       {/* 当前玩家 */}
       <div className={`
-        px-6 py-2 rounded-full text-white font-bold text-lg
+        px-5 sm:px-6 py-1.5 sm:py-2 rounded-full text-white font-bold text-base sm:text-lg
         bg-gradient-to-r ${playerColor}
         shadow-lg
       `}>
@@ -376,32 +377,32 @@ function TaskRevealCard({
 
       {/* 任务展示卡片 */}
       <div className={`w-full rounded-3xl bg-gradient-to-br from-indigo-900/90 to-purple-900/90 
-        flex items-center justify-center p-8 border border-indigo-400/30 
+        flex items-center justify-center p-5 sm:p-8 border border-indigo-400/30 
         shadow-lg shadow-indigo-500/20 ${revealed ? 'animate-bounce-in' : 'opacity-0'}`}>
-        <p className="text-white text-xl font-bold text-center leading-relaxed font-nunito">
+        <p className="text-white text-base sm:text-xl font-bold text-center leading-relaxed font-nunito px-2">
           {task.text}
         </p>
       </div>
 
       {/* 操作按钮 */}
       {revealed && (
-        <div className="flex gap-3 w-full animate-bounce-in">
+        <div className="flex gap-2 sm:gap-3 w-full animate-bounce-in">
           <button
             onClick={onRedraw}
-            className="btn-ripple flex-1 cursor-pointer py-3 rounded-xl font-bold text-white text-sm
+            className="btn-ripple flex-1 cursor-pointer py-2.5 sm:py-3 rounded-xl font-bold text-white text-xs sm:text-sm
               bg-gradient-to-r from-purple-600 to-indigo-600
               hover:from-purple-500 hover:to-indigo-500
-              transition-all duration-300 hover:scale-105
+              transition-all duration-300 hover:scale-105 active:scale-95
               shadow-lg shadow-purple-500/20"
           >
             🎲 重新抽5张
           </button>
           <button
             onClick={onNext}
-            className="btn-ripple flex-1 cursor-pointer py-3 rounded-xl font-bold text-white text-sm
+            className="btn-ripple flex-1 cursor-pointer py-2.5 sm:py-3 rounded-xl font-bold text-white text-xs sm:text-sm
               bg-gradient-to-r from-emerald-600 to-teal-600
               hover:from-emerald-500 hover:to-teal-500
-              transition-all duration-300 hover:scale-105
+              transition-all duration-300 hover:scale-105 active:scale-95
               shadow-lg shadow-emerald-500/20"
           >
             ✅ 完成轮换
@@ -437,31 +438,31 @@ function CustomTaskManager({
 
   return (
     <div className="flex flex-col h-full">
-      <div className="flex items-center gap-3 mb-6">
+      <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
         <button
           onClick={onBack}
-          className="btn-ripple cursor-pointer p-2 rounded-xl glass hover:bg-white/10 transition-colors text-white"
+          className="btn-ripple cursor-pointer p-2 rounded-xl glass hover:bg-white/10 transition-colors text-white text-sm active:scale-95"
         >
           ← 返回
         </button>
-        <h2 className="text-xl font-bold font-fredoka gradient-text">自定义任务</h2>
+        <h2 className="text-lg sm:text-xl font-bold font-fredoka gradient-text">自定义任务</h2>
       </div>
 
       {/* 输入区 */}
-      <div className="flex gap-2 mb-4">
+      <div className="flex gap-2 mb-3 sm:mb-4">
         <input
           value={input}
           onChange={e => setInput(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && addTask()}
           placeholder="输入自定义任务..."
-          className="flex-1 px-4 py-3 rounded-xl glass text-white placeholder-white/40
+          className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl glass text-white placeholder-white/40
             border border-white/20 focus:border-indigo-400 outline-none transition-colors
-            text-sm"
+            text-base"
         />
         <button
           onClick={addTask}
-          className="btn-ripple cursor-pointer px-4 py-3 rounded-xl bg-indigo-500 hover:bg-indigo-400
-            text-white font-bold transition-colors"
+          className="btn-ripple cursor-pointer px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-indigo-500 hover:bg-indigo-400
+            text-white font-bold transition-colors active:scale-95 text-sm"
         >
           +添加
         </button>
@@ -571,30 +572,30 @@ function GameScreen({
   return (
     <div className="flex flex-col h-full">
       {/* 顶栏 */}
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-1.5">
+      <div className="flex items-center justify-between mb-3 sm:mb-4">
+        <div className="flex items-center gap-1 sm:gap-1.5">
           <button
             onClick={onBack}
-            className="btn-ripple cursor-pointer p-2 rounded-xl glass hover:bg-white/10 transition-colors text-white text-sm"
+            className="btn-ripple cursor-pointer p-1.5 sm:p-2 rounded-xl glass hover:bg-white/10 transition-colors text-white text-xs sm:text-sm active:scale-95"
           >
             ← 换模式
           </button>
         </div>
-        <div className={`px-4 py-1.5 rounded-full text-sm font-bold text-white bg-gradient-to-r ${cfg.color}`}>
+        <div className={`px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-bold text-white bg-gradient-to-r ${cfg.color}`}>
           {cfg.emoji} {cfg.label}
         </div>
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1 sm:gap-1.5">
           <button
             onClick={() => setShowHistory(!showHistory)}
-            className="btn-ripple cursor-pointer p-2 rounded-xl glass hover:bg-white/10 transition-colors text-white text-sm"
+            className="btn-ripple cursor-pointer p-1.5 sm:p-2 rounded-xl glass hover:bg-white/10 transition-colors text-white text-xs sm:text-sm active:scale-95"
           >
-            📜 记录
+            📜
           </button>
           <button
             onClick={onDetail}
-            className="btn-ripple cursor-pointer p-2 rounded-xl glass hover:bg-white/10 transition-colors text-white text-sm"
+            className="btn-ripple cursor-pointer p-1.5 sm:p-2 rounded-xl glass hover:bg-white/10 transition-colors text-white text-xs sm:text-sm active:scale-95"
           >
-            📖 说明
+            📖
           </button>
         </div>
       </div>
@@ -606,12 +607,12 @@ function GameScreen({
 
       {/* 历史弹窗 */}
       {showHistory && (
-        <div className="fixed inset-0 z-50 flex items-end justify-center p-4" onClick={() => setShowHistory(false)}>
-          <div className="glass-dark rounded-3xl p-5 w-full max-w-sm max-h-[70vh] overflow-y-auto"
+        <div className="fixed inset-0 z-50 flex items-end justify-center p-3 sm:p-4" onClick={() => setShowHistory(false)}>
+          <div className="glass-dark rounded-3xl p-4 sm:p-5 w-full max-w-sm max-h-[70vh] overflow-y-auto"
             onClick={e => e.stopPropagation()}>
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-white font-bold font-fredoka text-lg">任务记录</h3>
-              <button onClick={() => setShowHistory(false)} className="cursor-pointer text-white/60 hover:text-white text-2">×</button>
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
+              <h3 className="text-white font-bold font-fredoka text-base sm:text-lg">任务记录</h3>
+              <button onClick={() => setShowHistory(false)} className="cursor-pointer text-white/60 hover:text-white text-2xl leading-none">×</button>
             </div>
             {history.length === 0
               ? <div className="text-white/40 text-center py-4">还没有完成任何任务</div>
@@ -693,7 +694,7 @@ export default function App() {
       <Stars />
       <FloatingHearts />
 
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-start p-4 pt-8 pb-8">
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-start px-3 pt-4 pb-6 sm:px-4 sm:pt-8 sm:pb-8">
         <div className="w-full max-w-sm">
 
           {/* ── 主页 ── */}
@@ -701,22 +702,22 @@ export default function App() {
             <div className="flex flex-col gap-6 animate-bounce-in">
               {/* Logo区 */}
               <div className="text-center mb-2">
-                <div className="text-5xl mb-3 heartbeat inline-block">💑</div>
-                <h1 className="text-4xl font-bold font-fredoka gradient-text leading-tight">
+                <div className="text-4xl sm:text-5xl mb-2 sm:mb-3 heartbeat inline-block">💑</div>
+                <h1 className="text-3xl sm:text-4xl font-bold font-fredoka gradient-text leading-tight">
                   情侣小游戏
                 </h1>
-                <p className="text-white/50 mt-2 text-sm">为你们定制的专属互动时光</p>
+                <p className="text-white/50 mt-1 sm:mt-2 text-xs sm:text-sm">为你们定制的专属互动时光</p>
               </div>
 
               {/* 模式网格 */}
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-2 sm:gap-3">
                 {(['romance', 'intimate', 'advanced', 'couple'] as GameMode[]).map(mode => (
                   <ModeCard key={mode} mode={mode} onSelect={() => handleModeSelect(mode)} />
                 ))}
               </div>
 
               {/* 混合模式 + 自定义模式 */}
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-2 sm:gap-3">
                 <ModeCard mode="mixed" onSelect={() => handleModeSelect('mixed')} />
                 <ModeCard mode="custom" onSelect={() => handleModeSelect('custom')} />
               </div>
@@ -730,7 +731,7 @@ export default function App() {
 
           {/* ── 游戏界面 ── */}
           {screen === 'game' && (
-            <div className="min-h-[85vh] flex flex-col animate-bounce-in">
+            <div className="min-h-[80vh] sm:min-h-[85vh] flex flex-col animate-bounce-in">
               <GameScreen
                 mode={selectedMode}
                 tasks={getTaskPool(selectedMode)}
@@ -742,7 +743,7 @@ export default function App() {
 
           {/* ── 自定义编辑 ── */}
           {screen === 'custom-edit' && (
-            <div className="min-h-[85vh] flex flex-col animate-bounce-in">
+            <div className="min-h-[80vh] sm:min-h-[85vh] flex flex-col animate-bounce-in">
               <CustomTaskManager
                 tasks={customTasks}
                 onSave={saveCustomTasks}
@@ -753,7 +754,7 @@ export default function App() {
 
           {/* ── 模式详情（玩法说明 + 任务列表） ── */}
           {screen === 'mode-detail' && (
-            <div className="min-h-[85vh] flex flex-col animate-bounce-in">
+            <div className="min-h-[80vh] sm:min-h-[85vh] flex flex-col animate-bounce-in">
               <ModeDetail
                 mode={selectedMode}
                 tasks={getTaskPool(selectedMode)}
